@@ -9,13 +9,15 @@
 		var House2:house2 = new house2();
 		var House3:house3 = new house3();
 		var House4:house4 = new house4();
+		var House5:house5 = new house5();
 		private var m_timer:Timer;
 		private var timer:Timer;
 		private var upgrade:Boolean = true;
-		private var upgradehouse1:int = 500;
+		private var upgradehouse1:int = 1000;
 		private var upgradehouse2:int = 1000;
-		private var upgradehouse3:int = 1500;
-		private var upgradehouse4:int = 2000;
+		private var upgradehouse3:int = 1000;
+		private var upgradehouse4:int = 1000;
+		private var upgradehouse5:int = 1000;
 		
 				
 		public function House(){
@@ -55,6 +57,12 @@
 					removeChild(House3);
 				}
 			}
+			if (Main.houselevel == 5){
+				this.addChild(House5);
+				if (this.contains(House4)){
+					removeChild(House4);
+				}
+			}
 
 		}
 		 private function OnClick( e:MouseEvent ):void
@@ -74,7 +82,6 @@
         }
 		 private function OnDoubleClick( e:MouseEvent ):void
         {
-			trace("upgraded house");
             if ( m_timer != null )
             {
                 m_timer.stop();
@@ -82,15 +89,6 @@
                 m_timer = null;
 
 				if((Main.houselevel == 1)&&( upgrade == true )){
-					if (Main.currentcash >= upgradehouse1){
-						Main.houselevel += 1;
-						Main.currentcash -= upgradehouse1;
-						upgrade = false;
-					}else{
-						_root.UIHolder.nocashtext.visible = true;
-					}
-				}
-				if((Main.houselevel == 2)&&( upgrade == true )){
 					if (Main.currentcash >= upgradehouse2){
 						Main.houselevel += 1;
 						Main.currentcash -= upgradehouse2;
@@ -103,7 +101,7 @@
 						_root.UIHolder.nocashtext.visible = true;
 					}
 				}
-				if((Main.houselevel == 3)&&( upgrade == true )){
+				if((Main.houselevel == 2)&&( upgrade == true )){
 					if (Main.currentcash >= upgradehouse3){
 						Main.houselevel += 1;
 						Main.currentcash -= upgradehouse3;
@@ -116,7 +114,7 @@
 						_root.UIHolder.nocashtext.visible = true;
 					}
 				}
-				if((Main.houselevel == 4)&&( upgrade == true )){
+				if((Main.houselevel == 3)&&( upgrade == true )){
 					if (Main.currentcash >= upgradehouse4){
 						Main.houselevel += 1;
 						Main.currentcash -= upgradehouse4;
@@ -124,6 +122,19 @@
 						this.addChild(House4);
 						if (this.contains(House3)){
 							removeChild(House3);
+						}
+					}else{
+						_root.UIHolder.nocashtext.visible = true;
+					}
+				}
+				if((Main.houselevel == 4)&&( upgrade == true )){
+					if (Main.currentcash >= upgradehouse5){
+						Main.houselevel += 1;
+						Main.currentcash -= upgradehouse5;
+						upgrade = false;
+						this.addChild(House5);
+						if (this.contains(House4)){
+							removeChild(House4);
 						}
 					}else{
 						_root.UIHolder.nocashtext.visible = true;
