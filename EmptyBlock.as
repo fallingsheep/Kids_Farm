@@ -46,9 +46,9 @@
                 m_timer = null;
 				
 				if (Main.currentcash >= Main.fieldcost){	
-					_root.plowField(this.x,this.y);//make the turret
+					_root.plantCorn(this.x,this.y);
 					this.buttonMode = false;
-		
+					
 					this.removeEventListener(MouseEvent.MOUSE_OVER, thisMouseOver);
 					this.removeEventListener(MouseEvent.MOUSE_OUT, thisMouseOut);
 					this.removeEventListener( MouseEvent.CLICK, OnClick );

@@ -23,7 +23,6 @@
 		
 		public var saveAchivementDataObject:SharedObject;
 
-		public static var fieldcost:int = 10;
 		
 		//achivements
 		public var achive1,achive2,achive3,achive4,achive5,achive6,achive7,achive8,achive9,achive10:Boolean;
@@ -65,6 +64,8 @@
 		public static var experience:int = 0;
 		public static var farmSize:int = 1;
 		public static var houselevel:int = 1;
+		public static var fieldcost:int = 10;
+		public static var fieldsmax:int = 9;
 		
 		
         public function Main()
@@ -97,11 +98,55 @@
 			//debug fps + mem
 			debugstuff();
 			updatetext();
-			
+			setLevel();
 		}
+//Update GUI
 public function updatetext():void{
 	UIHolder.cashtext.text = ("$"+currentcash.toString());
 	UIHolder.leveltext.text = (level.toString());
+}
+
+//Set Level/max fields/crops/etc
+public function setLevel():void{
+	if(experience <= 499){
+		level = 0;
+		fieldsmax = 9;
+	}
+	if(experience >= 500){
+		level = 1;
+	}
+	if(experience >= 1000){
+		level = 2;
+		fieldsmax = 12;
+	}	
+	if(experience >= 2000){
+		level = 3;
+	}
+	if(experience >= 3000){
+		level = 4;
+		fieldsmax = 15;
+	}
+	if(experience >= 5000){
+		level = 5;
+	}
+	if(experience >= 8000){
+		level = 6;
+		fieldsmax = 18;
+	}	
+	if(experience >= 12000){
+		level = 7;
+	}
+	if(experience >= 17000){
+		level = 8;
+		fieldsmax = 21;
+	}
+	if(experience >= 23000){
+		level = 9;
+	}
+	if(experience >= 30000){
+		level = 10;
+		fieldsmax =24;
+	}
 }
 function startGame():void{//we'll run this function every time a new level begins
 
@@ -160,23 +205,47 @@ function makeLevel():void{
 }
 public static var canaddfield:Boolean = false;
 
+//_root.plowField(this.x,this.y);//make the field
+//_root.plantCorn(this.x,this.y);//make the corn
+private function noCash():void{
+	//text timer
+			timer= new Timer(1000, 1);
+			timer.addEventListener(TimerEvent.TIMER, TimerComplete);
+			timer.start();
+			UIHolder.nocashtext.visible = true;
+}
+private function TimerComplete( e:TimerEvent ):void
+        {
+            UIHolder.nocashtext.visible = false;
+        }
 function plowField(xValue:int,yValue:int):void{//this will need to be told the x and y values
-	var field:Field = new Field();//creating a variable to hold the Turret
+	var field:Field = new Field();//creating a variable to hold the field
 
 		field.x = xValue+12.5;
 		field.y = yValue+12.5;
 		LevelHolder.addChild(field);//add it to the stage
 
 }
+public static var cornAmount:int;
+
+function plantCorn(xValue:int,yValue:int):void{//this will need to be told the x and y values
+	var corn:Corn = new Corn();//creating a variable to hold the field
+
+		corn.x = xValue+12.5;
+		corn.y = yValue+12.5;
+		LevelHolder.addChild(corn);//add it to the stage
+
+}
 		//Rank up timer checker
 
 function addHouse(xValue:int,yValue:int):void{//this will need to be told the x and y values
-	var house1:House = new House();//creating a variable to hold the Turret
+	var house1:House = new House();//creating a variable to hold the house
 	//changing the coordinates
 	house1.x = xValue+12.5;
 	house1.y = yValue+12.5;
 	LevelHolder.addChild(house1);//add it to the stage
 }
+//ZOOM IN OUT
 function onZoom(e:TransformGestureEvent):void
 {
     if ((((LevelHolder.scaleX <= 4)) && ((LevelHolder.scaleX >= 0.8)))){
@@ -202,6 +271,7 @@ function zoomOut(event:MouseEvent):void
         };
     };
 }
+//DRAG & DROP
 function md(evt:*):void
 {
     LevelHolder.startDrag(false, new Rectangle(-2000, -1600, 5000, 3200));

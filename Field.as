@@ -9,6 +9,7 @@
 			//adding the required listeners
 			this.addEventListener(Event.ADDED, beginClass);
 			this.addEventListener(Event.ENTER_FRAME, eFrameEvents);
+			trace("corn planted");
 		}
 		private function beginClass(e:Event):void{
 			_root = MovieClip(root);
