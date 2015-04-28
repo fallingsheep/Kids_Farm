@@ -45,8 +45,14 @@
                 m_timer.removeEventListener( TimerEvent.TIMER_COMPLETE, OnTimerComplete );
                 m_timer = null;
 				
-				if (Main.currentcash >= Main.fieldcost){	
-					_root.plantCorn(this.x,this.y);
+				if (Main.currentcash >= Main.fieldcost){
+					
+					//check if plow field selected
+					
+					_root.plowField(this.x,this.y);
+					Main.experience += 1; // give XP
+					
+					
 					this.buttonMode = false;
 					
 					this.removeEventListener(MouseEvent.MOUSE_OVER, thisMouseOver);

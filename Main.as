@@ -104,6 +104,7 @@
 public function updatetext():void{
 	UIHolder.cashtext.text = ("$"+currentcash.toString());
 	UIHolder.leveltext.text = (level.toString());
+	UIHolder.xptext.text = (experience.toString());
 }
 
 //Set Level/max fields/crops/etc
@@ -227,12 +228,13 @@ function plowField(xValue:int,yValue:int):void{//this will need to be told the x
 
 }
 public static var cornAmount:int;
+public static var wheatAmount:int;
 
 function plantCorn(xValue:int,yValue:int):void{//this will need to be told the x and y values
 	var corn:Corn = new Corn();//creating a variable to hold the field
 
-		corn.x = xValue+12.5;
-		corn.y = yValue+12.5;
+		corn.x = xValue-12.5;
+		corn.y = yValue-12.5;
 		LevelHolder.addChild(corn);//add it to the stage
 
 }

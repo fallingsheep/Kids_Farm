@@ -3,28 +3,30 @@
 	import flash.events.*;
 	import flash.utils.Timer;
 	
-	public class Corn extends MovieClip{
+	public class Wheat extends MovieClip{
 		private var _root:MovieClip;
-		var CornA:corna = new corna();
+		var WheatA:wheata = new wheata();
 
 		var GrowStage:int = 1;
 
 		private var timer:Timer;
 		private var timer2:Timer;
 				
-		public function Corn(){
+		public function Wheat(){
 			//adding the required listeners
 			this.addEventListener(Event.ADDED, beginClass);
 			this.addEventListener(Event.ENTER_FRAME, eFrameEvents);
 			this.addEventListener( MouseEvent.CLICK, OnClick );
 			
-			Main.cornAmount -= 1;//remove 1 corn
+			Main.wheatAmount -= 1;
+			trace("WHEAT:" + Main.cornAmount);
+			trace("wheat planted");
 		}
 		private function beginClass(e:Event):void{
 			_root = MovieClip(root);
 			if (GrowStage == 1){
-			this.addChild(CornA);
-			CornA.gotoAndStop(1);
+			this.addChild(WheatA);
+			WheatA.gotoAndStop(1);
 			}
 			this.buttonMode = false;
 			//start growtimer
@@ -37,9 +39,10 @@
         {
 			if (GrowStage == 3){
 				GrowStage = 0;
-				Main.cornAmount += 2;
+				Main.wheatAmount += 2;
 				Main.experience += 2;
 				this.parent.removeChild(this);
+				trace(Main.wheatAmount);
 				this.buttonMode = true;
 			}
         }
@@ -51,7 +54,8 @@
         {
 			timer.removeEventListener(TimerEvent.TIMER, TimerComplete);
             GrowStage += 1;
-			CornA.gotoAndStop(2);
+			trace("wheat stage:" + GrowStage);
+			WheatA.gotoAndStop(2);
 			timer.stop();
 			timer2= new Timer(2000, 1); //1000 = 1 second
 			timer2.addEventListener(TimerEvent.TIMER, TimerComplete2);
@@ -62,7 +66,8 @@
         {
 			timer2.removeEventListener(TimerEvent.TIMER, TimerComplete2);
             GrowStage += 1;
-			CornA.gotoAndStop(3);
+			trace("wheat stage:" + GrowStage);
+			WheatA.gotoAndStop(3);
 			timer2.stop();
 			
 
